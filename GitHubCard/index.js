@@ -43,15 +43,21 @@ const followersArray = [
   "dustinmyers",
   "justsml",
   "luishrd",
-  "bigknell"];
+  "bigknell",
+  "DannyManzietti",
+  "bbaney",
+  "crsullivan",
+  "sydneyblom",
+  "mary-clayton"
+];
 
   followersArray.forEach(item =>{
     let followerUrl = `https://api.github.com/users/${item}`;
-    console.log(followerUrl);
+    //console.log(followerUrl);
     axios
 .get(followerUrl)
 .then(response => {
-  console.log(response.data);
+  //console.log(response.data);
   CreateCard(response);
 })
 .catch(error => {
@@ -112,18 +118,17 @@ function CreateCard(obj) {
   name.classList.add("name");
   username.classList.add("username");
 
-  //set textContent
-  userImg.textContent = obj.data.avatar_url;
+  //set textContent/attributes
+  userImg.src = `${obj.data.avatar_url}`;
   name.textContent = obj.data.name;
   username.textContent = obj.data.login;
-  location.textContent = obj.data.location;
-  //profile.textContent = obj.data.===> need this??
-  profileLink.textContent = obj.data.html_url;
-  followers.textContent = obj.data.followers;
-  following.textContent = obj.data.following;
-  bio.textContent = obj.data.bio;
-
-  
+  location.textContent = `Location: ${obj.data.location}`;
+  profile.textContent = `Profile: `;
+  profileLink.textContent = `${obj.data.html_url}`;
+  profileLink.href = `${obj.data.html_url}`;
+  followers.textContent = `Followers: ${obj.data.followers}`;
+  following.textContent = `Following: ${obj.data.following}`;
+  bio.textContent = `Bio: ${obj.data.bio}`;
 
   return userCard
 }
